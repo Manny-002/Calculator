@@ -13,6 +13,8 @@ int b = Convert.ToInt32(Console.ReadLine());
 
 int sum = a+b;
 int difference = a - b;
+int product = a * b;
+int division = a / b;
 
 
 
@@ -22,4 +24,8 @@ Console.WriteLine("Součet je:");
 Console.WriteLine(sum);
 Console.WriteLine("Rozdíl je:");
 Console.WriteLine(difference);
+Console.WriteLine("Součin je:");
+Console.WriteLine(product);
+Console.WriteLine("Podíl je:");
+Console.WriteLine(division);
 
