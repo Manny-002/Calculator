@@ -22,59 +22,45 @@ void ZadejCisla()
     Console.Write("Zadej druhé číslo: ");
     b = Convert.ToInt32(Console.ReadLine());
 
-    Log.Information("Zadána nová čísla: {A}, {B}", a, b);
+    Log.Information("Zadána čísla: {A}, {B}", a, b);
 }
 
-// Hlavní menu
+/// Hlavní menu
 var hlavniMenu = new ConsoleMenu(args, level: 0)
-    .Add("Zadat vstupní čísla", () =>
-    {
+    .Add("Sčítání", () => {
         ZadejCisla();
-
-        var operaceMenu = new ConsoleMenu(args, level: 1)
-            .Add("Sčítání", () => {
-                int result = Calculations.Sum(a, b);
-                Console.WriteLine($"Výsledek: {result}");
-                Log.Information("Sčítání: {A} + {B} = {Result}", a, b, result);
-                Console.ReadKey();
-            })
-            .Add("Odčítání", () => {
-                int result = Calculations.Difference(a, b);
-                Console.WriteLine($"Výsledek: {result}");
-                Log.Information("Odčítání: {A} - {B} = {Result}", a, b, result);
-                Console.ReadKey();
-            })
-            .Add("Násobení", () => {
-                int result = Calculations.Multiply(a, b);
-                Console.WriteLine($"Výsledek: {result}");
-                Log.Information("Násobení: {A} * {B} = {Result}", a, b, result);
-                Console.ReadKey();
-            })
-            .Add("Dělení", () => {
-                double result = Calculations.Division(a, b);
-                Console.WriteLine($"Výsledek: {result}");
-                Log.Information("Dělení: {A} / {B} = {Result}", a, b, result);
-                Console.ReadKey();
-            })
-            .Add("Zadat nová čísla", () => {
-                ZadejCisla();
-            })
-            .Add("Zpět", ConsoleMenu.Close)
-            .Configure(config =>
-            {
-                config.Selector = "--> ";
-                config.EnableFilter = false;
-                config.Title = "Kalkulačka – vyber operaci:";
-                config.EnableWriteTitle = true;
-            });
-
-        operaceMenu.Show();
+        int result = Calculations.Sum(a, b);
+        Console.WriteLine($"Výsledek: {result}");
+        Log.Information("Sčítání: {A} + {B} = {Result}", a, b, result);
+        Console.ReadKey();
+    })
+    .Add("Odčítání", () => {
+        ZadejCisla();
+        int result = Calculations.Difference(a, b);
+        Console.WriteLine($"Výsledek: {result}");
+        Log.Information("Odčítání: {A} - {B} = {Result}", a, b, result);
+        Console.ReadKey();
+    })
+    .Add("Násobení", () => {
+        ZadejCisla();
+        int result = Calculations.Multiply(a, b);
+        Console.WriteLine($"Výsledek: {result}");
+        Log.Information("Násobení: {A} * {B} = {Result}", a, b, result);
+        Console.ReadKey();
+    })
+    .Add("Dělení", () => {
+        ZadejCisla();
+        double result = Calculations.Division(a, b);
+        Console.WriteLine($"Výsledek: {result}");
+        Log.Information("Dělení: {A} / {B} = {Result}", a, b, result);
+        Console.ReadKey();
     })
     .Add("Konec", ConsoleMenu.Close)
     .Configure(config =>
     {
         config.Selector = "--> ";
         config.Title = "Kalkulačka – hlavní menu";
+        config.EnableWriteTitle = true;
     });
 
 // Spuštění menu
