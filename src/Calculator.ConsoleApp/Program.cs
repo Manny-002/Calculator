@@ -1,9 +1,10 @@
-﻿
+﻿using ConsoleTools;
 using Serilog;
+using Calculator.Calculations;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
-    .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+    .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day) // zapisuje logy do souboru
     .CreateLogger();
 
 
@@ -18,6 +19,44 @@ int a = Convert.ToInt32(Console.ReadLine());
 
 Console.Write("Zadej druhe cislo:");
 int b = Convert.ToInt32(Console.ReadLine());
+
+
+var menu = new ConsoleMenu(args, level: 0)
+         .Add("Sčítání", () => {
+             int result = Calculations.Sum(a, b);
+             Console.WriteLine($"Výsledek: {result}");
+             Log.Information("Sčítání: {A} + {B} = {Result}", a, b, result);
+             Console.ReadKey();
+         })
+         .Add("Odčítání", () => {
+             int result = Calculations.Difference(a, b);
+             Console.WriteLine($"Výsledek: {result}");
+             Log.Information("Odčítání: {A} - {B} = {Result}", a, b, result);
+             Console.ReadKey();
+         })
+         .Add("Násobení", () => {
+             int result = Calculations.Multiply(a, b);
+             Console.WriteLine($"Výsledek: {result}");
+             Log.Information("Násobení: {A} * {B} = {Result}", a, b, result);
+             Console.ReadKey();
+         })
+         .Add("Dělení", () => {
+             double result = Calculations.Division(a, b);
+             Console.WriteLine($"Výsledek: {result}");
+             Log.Information("Dělení: {A} / {B} = {Result}", a, b, result);
+             Console.ReadKey();
+         })
+         .Add("Konec", ConsoleMenu.Close)
+         .Configure(config =>
+         {
+             config.Selector = "--> ";
+             config.EnableFilter = false;
+             config.Title = "Kalkulačka – vyber operaci:";
+             config.EnableWriteTitle = true;
+         });
+
+menu.Show();
+
 
 //vypis operaci
 
@@ -64,4 +103,6 @@ Console.WriteLine("Součin je {0}", Calculator.Calculations.Calculations.Multipl
 Console.WriteLine("Podíl je {0}", Calculator.Calculations.Calculations.Division(a, b));
 
 
+
+Console.WriteLine("Log se uložil do kořenové složky programu");
 Log.CloseAndFlush();
