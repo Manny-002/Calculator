@@ -4,12 +4,15 @@ namespace Calculator.Calculations
 {
     public class Calculations
     {
+
+      
         public static int Sum(int a, int b)
         {
             int result = a + b;
             Log.Information("Součet {A} + {B} = {Result}", a, b, result);
             return result;
         }
+
         public static int Difference(int a, int b)
         {
             int result = a - b;
@@ -23,6 +26,7 @@ namespace Calculator.Calculations
             Log.Information("Součin {A} * {B} = {Result}", a, b, result);
             return result;
         }
+
         public static double Division(int a, int b)
         {
             if (b == 0)
@@ -35,6 +39,5 @@ namespace Calculator.Calculations
             Log.Information("Podíl {A} / {B} = {Result}", a, b, result);
             return result;
         }
-
     }
 }
