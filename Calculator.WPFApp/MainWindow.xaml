@@ -55,6 +55,9 @@
             <Button Grid.Row="4" Grid.Column="1" Content="." Command="{Binding NumberCommand}" CommandParameter="."/>
             <Button Grid.Row="4" Grid.Column="2" Content="=" Command="{Binding EqualCommand}"/>
             <Button Grid.Row="4" Grid.Column="3" Content="+" Command="{Binding OperatorCommand}" CommandParameter="+"/>
+            <Button Grid.Row="0" Grid.Column="0" Content="C" Command="{Binding ClearCommand}" />
+            <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Content="C" Command="{Binding ClearCommand}" />
+
         </Grid>
     </Grid>
 </Window>
