@@ -5,7 +5,7 @@ namespace Calculator.Calculations
     public class Calculations
     {
 
-      
+        
         public static int Sum(int a, int b)
         {
             int result = a + b;
