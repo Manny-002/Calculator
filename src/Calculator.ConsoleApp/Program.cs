@@ -16,6 +16,8 @@ class Program
             .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
             .CreateLogger();
 
+        Log.Information("Aplikace spuštěna");
+
         Console.WriteLine("Toto je kalkulačka");
 
         // Hlavní menu
@@ -24,7 +26,11 @@ class Program
             .Add("Odčítání", OperationDifference)
             .Add("Násobení", OperationSum)
             .Add("Dělení", OperationDivision)
-            .Add("Konec", ConsoleMenu.Close)
+            .Add("Konec", () =>
+            {
+                Log.Information("Aplikace ukončena");
+                Environment.Exit(0);
+            })
             .Configure(config =>
             {
                 config.Selector = "--> ";
@@ -33,6 +39,7 @@ class Program
 
         hlavniMenu.Show();
     }
+
 
     static List<double> numbers = new();
 
