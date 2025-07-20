@@ -5,8 +5,8 @@ using Calculator.Calculations;
 class Program
 {
     // Proměnné na úrovni třídy
-    static int a;
-    static int b;
+    static double a;
+    static double b;
 
     static void Main(string[] args)
     {
@@ -37,19 +37,31 @@ class Program
     // Pomocná metoda pro zadání čísel
     static void ZadejCisla()
     {
-        Console.Write("Zadej první číslo: ");
-        a = Convert.ToInt32(Console.ReadLine());
-
-        Console.Write("Zadej druhé číslo: ");
-        b = Convert.ToInt32(Console.ReadLine());
-
+        a = NactiCislo("Zadej první číslo: ");
+        b = NactiCislo("Zadej druhé číslo: ");
         Log.Information("Zadána čísla: {A}, {B}", a, b);
     }
+
+    //osetreni vstupu na psani cisel
+    static double NactiCislo(string vyzva)
+    {
+        while (true)
+        {
+            Console.Write(vyzva);
+            string? vstup = Console.ReadLine();
+
+            if (double.TryParse(vstup, out double cislo))
+                return cislo;
+
+            Console.WriteLine("Neplatný vstup. Zadej celé číslo.");
+        }
+    }
+
 
     static void OperaceScitani()
     {
         ZadejCisla();
-        int result = Calculations.Sum(a, b);
+        double result = Calculations.Sum(a, b);
         Console.WriteLine($"Výsledek: {result}");
         Console.ReadKey();
     }
@@ -57,7 +69,7 @@ class Program
     static void OperaceOdcitani()
     {
         ZadejCisla();
-        int result = Calculations.Difference(a, b);
+        double result = Calculations.Difference(a, b);
         Console.WriteLine($"Výsledek: {result}");
         Console.ReadKey();
     }
@@ -65,7 +77,7 @@ class Program
     static void OperaceNasobeni()
     {
         ZadejCisla();
-        int result = Calculations.Multiply(a, b);
+        double result = Calculations.Multiply(a, b);
         Console.WriteLine($"Výsledek: {result}");
         Console.ReadKey();
     }
