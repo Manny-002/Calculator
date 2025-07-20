@@ -2,10 +2,12 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Calculator.Calculations;
+
 
 namespace Calculator.WPFApp.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainWindowViewModel : INotifyPropertyChanged
     {
         public ICommand NumberCommand { get; }
         public ICommand OperatorCommand { get; }
@@ -30,7 +32,7 @@ namespace Calculator.WPFApp.ViewModels
             }
         }
 
-        public MainViewModel()
+        public MainWindowViewModel()
         {
             NumberCommand = new RelayCommand(param => AppendNumber(param?.ToString()));
             OperatorCommand = new RelayCommand(param => SetOperator(param?.ToString()));
@@ -58,7 +60,7 @@ namespace Calculator.WPFApp.ViewModels
 
         private void Calculate()
         {
-            if (!string.IsNullOrEmpty(currentInput) && double.TryParse(currentInput, out double secondNumber))
+            if (double.TryParse(currentInput, out double secondNumber))
             {
                 double result = currentOperator switch
                 {
@@ -73,6 +75,7 @@ namespace Calculator.WPFApp.ViewModels
                 currentInput = result.ToString();
             }
         }
+
 
         private void Clear()
         {

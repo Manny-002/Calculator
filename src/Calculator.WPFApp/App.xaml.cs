@@ -13,10 +13,9 @@ namespace Calculator.WPFApp
 
             var mainWindow = new MainWindow
             {
-                DataContext = new MainViewModel()
+                DataContext = new MainWindowViewModel()
             };
 
-            mainWindow.Show();
         }
     }
 }
