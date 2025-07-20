@@ -20,10 +20,10 @@ class Program
 
         // Hlavní menu
         var hlavniMenu = new ConsoleMenu(args, level: 0)
-            .Add("Sčítání", OperaceScitani)
-            .Add("Odčítání", OperaceOdcitani)
-            .Add("Násobení", OperaceNasobeni)
-            .Add("Dělení", OperaceDeleni)
+            .Add("Sčítání", OperationAdd)
+            .Add("Odčítání", OperationDifference)
+            .Add("Násobení", OperationSum)
+            .Add("Dělení", OperationDivision)
             .Add("Konec", ConsoleMenu.Close)
             .Configure(config =>
             {
@@ -35,56 +35,56 @@ class Program
     }
 
     // Pomocná metoda pro zadání čísel
-    static void ZadejCisla()
+    static void EnterNumbers()
     {
-        a = NactiCislo("Zadej první číslo: ");
-        b = NactiCislo("Zadej druhé číslo: ");
+        a = ReadNumber("Zadej první číslo: ");
+        b = ReadNumber("Zadej druhé číslo: ");
         Log.Information("Zadána čísla: {A}, {B}", a, b);
     }
 
     //osetreni vstupu na psani cisel
-    static double NactiCislo(string vyzva)
+    static double ReadNumber(string call)
     {
         while (true)
         {
-            Console.Write(vyzva);
-            string? vstup = Console.ReadLine();
+            Console.Write(call);
+            string? input = Console.ReadLine();
 
-            if (double.TryParse(vstup, out double cislo))
-                return cislo;
+            if (double.TryParse(input, out double number))
+                return number;
 
             Console.WriteLine("Neplatný vstup. Zadej celé číslo.");
         }
     }
 
 
-    static void OperaceScitani()
+    static void OperationAdd()
     {
-        ZadejCisla();
+        EnterNumbers();
         double result = Calculations.Sum(a, b);
         Console.WriteLine($"Výsledek: {result}");
         Console.ReadKey();
     }
 
-    static void OperaceOdcitani()
+    static void OperationDifference()
     {
-        ZadejCisla();
+        EnterNumbers();
         double result = Calculations.Difference(a, b);
         Console.WriteLine($"Výsledek: {result}");
         Console.ReadKey();
     }
 
-    static void OperaceNasobeni()
+    static void OperationSum()
     {
-        ZadejCisla();
+        EnterNumbers();
         double result = Calculations.Multiply(a, b);
         Console.WriteLine($"Výsledek: {result}");
         Console.ReadKey();
     }
 
-    static void OperaceDeleni()
+    static void OperationDivision()
     {
-        ZadejCisla();
+        EnterNumbers();
         double result = Calculations.Division(a, b);
         Console.WriteLine($"Výsledek: {result}");
         Console.ReadKey();

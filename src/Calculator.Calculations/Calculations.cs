@@ -6,7 +6,6 @@ namespace Calculator.Calculations
     public class Calculations
     {
 
-        
         public static double Sum(double a, double b)
         {
             double result = a + b;
