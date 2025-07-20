@@ -34,34 +34,41 @@ class Program
         hlavniMenu.Show();
     }
 
-    // Pomocná metoda pro zadání čísel
+    static List<double> numbers = new();
+
     static void EnterNumbers()
     {
-        a = ReadNumber("Zadej první číslo: ");
-        b = ReadNumber("Zadej druhé číslo: ");
-        Log.Information("Zadána čísla: {A}, {B}", a, b);
-    }
+        numbers.Clear();
 
-    //osetreni vstupu na psani cisel
-    static double ReadNumber(string call)
-    {
+        Console.WriteLine("Zadávání čísel. Pro ukončení stiskni ENTER bez zadání.");
+
         while (true)
         {
-            Console.Write(call);
+            Console.Write($"Zadej číslo č. {numbers.Count + 1}: ");
             string? input = Console.ReadLine();
 
-            if (double.TryParse(input, out double number))
-                return number;
+            if (string.IsNullOrWhiteSpace(input))
+                break;
 
-            Console.WriteLine("Neplatný vstup. Zadej celé číslo.");
+            if (double.TryParse(input, out double number))
+            {
+                numbers.Add(number);
+            }
+            else
+            {
+                Console.WriteLine("Neplatný vstup. Zkus to znovu.");
+            }
         }
+
+        Log.Information("Zadána čísla: {Numbers}", string.Join(", ", numbers));
     }
+
 
 
     static void OperationAdd()
     {
         EnterNumbers();
-        double result = Calculations.Sum(a, b);
+        double result = Calculations.Sum(numbers);
         Console.WriteLine($"Výsledek: {result}");
         Console.ReadKey();
     }
@@ -69,7 +76,7 @@ class Program
     static void OperationDifference()
     {
         EnterNumbers();
-        double result = Calculations.Difference(a, b);
+        double result = Calculations.Difference(numbers);
         Console.WriteLine($"Výsledek: {result}");
         Console.ReadKey();
     }
@@ -77,7 +84,7 @@ class Program
     static void OperationSum()
     {
         EnterNumbers();
-        double result = Calculations.Multiply(a, b);
+        double result = Calculations.Multiply(numbers);
         Console.WriteLine($"Výsledek: {result}");
         Console.ReadKey();
     }
@@ -85,7 +92,7 @@ class Program
     static void OperationDivision()
     {
         EnterNumbers();
-        double result = Calculations.Division(a, b);
+        double result = Calculations.Division(numbers);
         Console.WriteLine($"Výsledek: {result}");
         Console.ReadKey();
     }

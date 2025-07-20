@@ -6,37 +6,47 @@ namespace Calculator.Calculations
     public class Calculations
     {
 
-        public static double Sum(double a, double b)
+        public static double Sum(List<double> numbers)
         {
-            double result = a + b;
-            Log.Information("Součet {A} + {B} = {Result}", a, b, result);
+            double result = numbers.Sum();
+            Log.Information("Součet {Expression} = {Result}", string.Join(" + ", numbers), result);
             return result;
         }
 
-        public static double Difference(double a, double b)
+        public static double Difference(List<double> numbers)
         {
-            double result = a - b;
-            Log.Information("Rozdíl {A} - {B} = {Result}", a, b, result);
+            double result = numbers.Aggregate((x, y) => x - y);
+            Log.Information("Rozdíl {Expression} = {Result}", string.Join(" - ", numbers), result);
             return result;
         }
 
-        public static double Multiply(double a, double b)
+        public static double Multiply(List<double> numbers)
         {
-            double result = a * b;
-            Log.Information("Součin {A} * {B} = {Result}", a, b, result);
+            double result = numbers.Aggregate((x, y) => x * y);
+            Log.Information("Součin {Expression} = {Result}", string.Join(" * ", numbers), result);
             return result;
         }
 
-        public static double Division(double a, double b)
+        public static double Division(List<double> numbers)
         {
-            if (b == 0)
+            if (numbers == null || numbers.Count == 0)
             {
-                Log.Warning("Dělení nulou: {A} / {B}", a, b);
+                Log.Warning("Dělení nulou: {A} / {B}");
                 return double.NaN;
             }
 
-            double result = (double)a / b;
-            Log.Information("Podíl {A} / {B} = {Result}", a, b, result);
+            // kontrola: nesmí být nula od druhého prvku dál
+            for (int i = 1; i < numbers.Count; i++)
+            {
+                if (numbers[i] == 0)
+                {
+                    Log.Warning("Dělení nulou: {Expression}", string.Join(" / ", numbers));
+                    return double.NaN;
+                }
+            }
+
+            double result = numbers.Aggregate((x, y) => x / y);
+            Log.Information("Podíl {Expression} = {Result}", string.Join(" / ", numbers), result);
             return result;
         }
     }
